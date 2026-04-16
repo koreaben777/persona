@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: persona-agent
+    runtime: python
+    rootDir: persona
+    buildCommand: pip install -r requirements.txt
+    startCommand: python llm_server.py
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
