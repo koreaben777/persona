@@ -69,6 +69,18 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             f"{derived_facts.get('residence_station_walk', '')}"
         ).strip(),
         (
+            "- Apartment gate: "
+            f"{residence.get('apartment_gate', '알 수 없음')}"
+        ),
+        (
+            "- Nearest convenience store: "
+            f"{residence.get('nearest_convenience_store', '알 수 없음')}"
+        ),
+        (
+            "- Nearby bus routes: "
+            f"{residence.get('nearby_bus_routes', {}).get('note', '알 수 없음')}"
+        ),
+        (
             "- Family / Household: "
             f"Lives with parents={family.get('parents_cohabitation', False)}, "
             f"Marital status={family.get('marital_status', 'unknown')}, "
@@ -94,8 +106,13 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             "- Academic advisor / Lab: "
             f"{current_program.get('advisor_name', 'unknown')} "
             f"({current_program.get('advisor_name_en', 'unknown')}), "
-            f"{current_program.get('lab_name', 'unknown')}"
+            f"{current_program.get('lab_name', 'unknown')}, "
+            f"office: {current_program.get('office_or_lab_location', '알 수 없음')}"
         ),
+        (
+            "- IME admin office: "
+            f"{recent_course.get('ime_admin_office', '알 수 없음')}"
+        ) if recent_course.get('ime_admin_office') else None,
         (
             "- Commute to campus: "
             f"{commute.get('origin_station', 'unknown')} "
