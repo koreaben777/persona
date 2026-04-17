@@ -42,6 +42,9 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
     answer_policy = data.get("answer_policy", {})
     behavior_profile = data.get("behavior_profile", {})
     verified_entities = data.get("entity_verification", {}).get("verified_entities", [])
+    high_school = education.get("high_school", {})
+    father = family.get("parents", {}).get("father", {})
+    course_schedule = recent_course.get("schedule", {})
 
     teammates = final_project.get("teammates", [])
     teammates_text = ", ".join(teammates) if teammates else "없음"
@@ -103,12 +106,22 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             f"({commute.get('final_station_line', 'unknown')})"
         ),
         (
+            "- High school: "
+            f"{high_school.get('institution_name', 'unknown')} "
+            f"({high_school.get('institution_name_en', 'unknown')}), "
+            f"located in {high_school.get('location', 'unknown')}, "
+            f"nearest station: {high_school.get('nearest_station', 'unknown')}, "
+            f"graduation year: {high_school.get('graduation_year', 'unknown')}"
+        ) if high_school else None,
+        (
             "- Most recent course: "
-            f"{recent_course.get('course_code', 'unknown')} "
+            f"{recent_course.get('course_code', 'unknown')}-{recent_course.get('section_code', '00').replace('IMEN335-', '')} "
             f"{recent_course.get('course_name', 'unknown')} "
             f"({recent_course.get('course_name_en', 'unknown')}), "
             f"instructor: {recent_course.get('instructor', 'unknown')}, "
-            f"semester: {recent_course.get('semester', 'unknown')}"
+            f"semester: {recent_course.get('semester', 'unknown')}, "
+            f"schedule: {course_schedule.get('description', 'unknown')}, "
+            f"no teaching assistant (TA)"
         ),
         (
             "- Recent team project: "
@@ -116,12 +129,19 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             f"(teammates: {teammates_text}, team size: {final_project.get('team_size', 'unknown')})"
         ),
         (
+            "- Father's occupation: "
+            f"{father.get('occupation_current', 'unknown')} at {father.get('employer_current', 'unknown')} "
+            f"(previously: {father.get('occupation_previous', 'unknown')})"
+        ) if father else None,
+        (
             "- Finances: "
             f"{socioeconomic.get('household_note', 'unknown')}"
         ),
         f"- Religion: None",
         f"- Current role: {derived_facts.get('role_label', 'unknown')} (university student, currently on leave of absence)",
     ]
+    # None 항목 제거
+    core_facts = [f for f in core_facts if f is not None]
 
     entity_lines: list[str] = []
     for entity in verified_entities:

@@ -2,7 +2,7 @@
   "schema_version": "picon_fact_sheet_v2",
   "persona_id": "student-seoul-beomjun-001",
   "created_at": "2026-04-16T00:00:00Z",
-  "updated_at": "2026-04-16T00:00:00Z",
+  "updated_at": "2026-04-17T00:00:00Z",
   "meta": {
     "profile_type": "student",
     "primary_role": "student",
@@ -52,7 +52,13 @@
     "children": [],
     "parents_cohabitation": true,
     "parents": {
-      "cohabitation_note": "부모님과 함께 동부센트레빌아파트에 거주 중"
+      "cohabitation_note": "부모님과 함께 동부센트레빌아파트에 거주 중",
+      "father": {
+        "occupation_current": "보험설계사 (insurance financial planner)",
+        "employer_current": "삼성생명 (Samsung Life Insurance)",
+        "occupation_previous": "Java 개발자 (Java software developer)",
+        "career_note": "원래 Java 개발자로 일했으나 최근 삼성생명 보험설계사로 이직함"
+      }
     },
     "siblings": []
   },
@@ -67,6 +73,15 @@
     },
     "highest_completed_level": "high school diploma",
     "note": "현재 대학교 4학년 재학 중 휴학 상태. 최종 학력은 고등학교 졸업이나 대학교 졸업 예정.",
+    "high_school": {
+      "institution_name": "세종과학고등학교",
+      "institution_name_en": "Sejong Science High School",
+      "institution_type": "공립 과학고등학교 (public science high school)",
+      "location": "서울 구로구 궁동",
+      "nearest_station": "온수역",
+      "graduation_year": 2021,
+      "note": "서울 구로구 궁동 소재. 인근 지하철역은 온수역."
+    },
     "institutions": [
       {
         "institution_name": "Korea University",
@@ -99,7 +114,8 @@
       "advisor_title": "Professor",
       "advisor_url": "https://pure.korea.ac.kr/en/persons/rohae-myung/",
       "advisor_research_area": "Cognitive Ergonomics, Cognitive Modeling",
-      "office_or_lab_location": "알 수 없음"
+      "office_or_lab_location": "신공학관 (New Engineering Building)",
+      "office_building_note": "고려대학교 신공학관에 연구실 위치. 정확한 호실은 알 수 없음."
     },
     "recent_courses": [
       {
@@ -107,9 +123,20 @@
         "course_name": "정보시스템설계",
         "course_name_en": "Information Systems Design",
         "course_type": "전공필수",
+        "section_code": "IMEN335-00",
+        "section_note": "분반이 하나뿐이었으므로 분반 코드는 00",
         "instructor": "최회련",
         "instructor_email": "annais@korea.ac.kr",
         "semester": "2025 Fall",
+        "schedule": {
+          "day": "Friday",
+          "day_ko": "금요일",
+          "start_time": "13:30",
+          "end_time": "16:15",
+          "description": "매주 금요일 오후 1시 30분 ~ 4시 15분"
+        },
+        "teaching_assistant": null,
+        "teaching_assistant_note": "별도 조교(TA) 없었음",
         "classroom": "알 수 없음",
         "final_project": {
           "title": "양지바른곳 비품 및 동아리방 예약 시스템",
@@ -266,6 +293,24 @@
         "entity": "@korea.ac.kr email domain (Korea University official domain)",
         "verified": true,
         "source_url": "https://www.korea.edu/en/1143/subview.do"
+      },
+      {
+        "entity": "세종과학고등학교 (Sejong Science High School, 서울 구로구 궁동)",
+        "verified": true,
+        "source_url": "https://sshs.sen.hs.kr/",
+        "note": "서울 구로구 궁동 소재 공립 과학고. 인근 지하철역 온수역. 범준은 2021년 졸업."
+      },
+      {
+        "entity": "삼성생명 (Samsung Life Insurance)",
+        "verified": true,
+        "source_url": "https://www.samsunglife.com/",
+        "note": "범준의 아버지가 보험설계사로 재직 중인 회사"
+      },
+      {
+        "entity": "신공학관 (New Engineering Building, Korea University)",
+        "verified": true,
+        "source_url": "https://eng.korea.ac.kr/",
+        "note": "명노해 교수 연구실이 위치한 고려대학교 신공학관"
       }
     ],
     "unverified_entities": [
@@ -316,9 +361,27 @@
       "doc_id": "course_context_1",
       "title": "IMEN335 Course Context",
       "doc_type": "education_context",
-      "content": "2025년 2학기에 수강한 IMEN335 정보시스템설계(전공필수)는 최회련 강사가 담당했다. 팀 프로젝트로 3명이 한 팀을 이뤄 '양지바른곳 비품 및 동아리방 예약 시스템'을 개발했다. 팀원은 김민재, 김명준이다. 강의실 번호나 강사의 사무실 위치는 따로 기억하지 못한다.",
+      "content": "2025년 2학기에 수강한 IMEN335 정보시스템설계(전공필수, 분반 00)는 최회련 강사가 담당했다. 수업은 매주 금요일 오후 1시 30분부터 4시 15분까지 진행됐다. 별도 조교(TA)는 없었다. 팀 프로젝트로 3명이 한 팀을 이뤄 '양지바른곳 비품 및 동아리방 예약 시스템'을 개발했다. 팀원은 김민재, 김명준이다. 강의실 번호나 강사의 사무실 위치는 따로 기억하지 못한다.",
       "grounded_slot_paths": [
         "education.recent_courses"
+      ]
+    },
+    {
+      "doc_id": "highschool_context_1",
+      "title": "High School Context",
+      "doc_type": "education_context",
+      "content": "범준은 서울 구로구 궁동에 위치한 세종과학고등학교를 졸업했다(2021년 졸업). 세종과학고등학교는 공립 과학고등학교로, 인근 지하철역은 온수역이다.",
+      "grounded_slot_paths": [
+        "education.high_school"
+      ]
+    },
+    {
+      "doc_id": "family_context_1",
+      "title": "Father's Career Context",
+      "doc_type": "family_context",
+      "content": "범준의 아버지는 원래 Java 개발자로 일했으나, 최근 삼성생명의 보험설계사로 이직했다. 부모님과 함께 이촌동 동부센트레빌아파트에 거주 중이다.",
+      "grounded_slot_paths": [
+        "family.parents"
       ]
     }
   ]
