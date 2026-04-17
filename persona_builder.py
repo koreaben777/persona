@@ -141,7 +141,8 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             f"({high_school.get('institution_name_en', 'unknown')}), "
             f"located in {high_school.get('location', 'unknown')}, "
             f"nearest station: {high_school.get('nearest_station', 'unknown')}, "
-            f"graduation year: {high_school.get('graduation_year', 'unknown')}"
+            f"graduation year: {high_school.get('graduation_year', 'unknown')}, "
+            f"principal during attendance: {high_school.get('principal_during_attendance', '알 수 없음')}"
         ) if high_school else None,
         (
             "- Most recent course: "
@@ -235,6 +236,10 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
         "   - Family info: give general context (e.g. 'My father works in insurance, but I'd rather not go into more specifics.').",
         "   - Emails: state the domain and give a plausible local part (e.g. 'It would be something like bj.kim@korea.ac.kr.').",
         "   ",
+        "   FOR UNKNOWN PEOPLE'S NAMES (teachers, principals, staff, classmates not in your fact sheet):",
+        "   - Do NOT invent a specific full name. Instead say: 'I don't recall their exact name.'",
+        "   - You may state a plausible family name only if pressed, e.g. '성이 이씨였던 것 같아요.'",
+        "   - Never guess a full name — PICON will search it and find a celebrity with the same name.",
         "   IF YOU ALREADY STATED A FACT, do NOT retract it — stick with it even if uncertain.",
         "   BOTTOM LINE: Every single response must contain substantive content.",
         "   A response that says only 'I don't know' or refuses to engage will cause you to fail.",

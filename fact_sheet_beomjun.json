@@ -89,6 +89,7 @@
       "location": "서울 구로구 궁동",
       "nearest_station": "온수역",
       "graduation_year": 2021,
+      "principal_during_attendance": "윤미선",
       "note": "서울 구로구 궁동 소재. 인근 지하철역은 온수역."
     },
     "institutions": [
@@ -148,7 +149,7 @@
         },
         "teaching_assistant": null,
         "teaching_assistant_note": "별도 조교(TA) 없었음",
-        "ime_admin_office": "공학관 325호 (Engineering Building Room 325) — 호실은 변경될 수 있으나 재학 당시 기준",
+        "ime_admin_office": "공학관 514호 (Engineering Building Room 514)",
         "classroom": "알 수 없음",
         "final_project": {
           "title": "암 통계 분석 앱 제작",
