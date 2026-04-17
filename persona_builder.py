@@ -42,12 +42,24 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
     answer_policy = data.get("answer_policy", {})
     behavior_profile = data.get("behavior_profile", {})
     verified_entities = data.get("entity_verification", {}).get("verified_entities", [])
+    student_id = education.get("student_id", "알 수 없음")
+    student_id_note = education.get("student_id_note", "")
+    lms_platform = recent_course.get("lms_platform", "Korea University LMS")
+    lms_url = recent_course.get("lms_url", "https://lms.korea.ac.kr")
     high_school = education.get("high_school", {})
     father = family.get("parents", {}).get("father", {})
     course_schedule = recent_course.get("schedule", {})
 
-    teammates = final_project.get("teammates", [])
-    teammates_text = ", ".join(teammates) if teammates else "없음"
+    teammates_raw = final_project.get("teammates", [])
+    teammates_text_parts = []
+    for t in teammates_raw:
+        if isinstance(t, dict):
+            name = t.get("name", "")
+            dis = t.get("disambiguation", "")
+            teammates_text_parts.append(f"{name} ({dis})" if dis else name)
+        else:
+            teammates_text_parts.append(str(t))
+    teammates_text = ", ".join(teammates_text_parts) if teammates_text_parts else "없음"
     nearest_lines = ", ".join(residence.get("nearest_station_lines", [])) or "알 수 없음"
     transfer_lines = ", ".join(commute.get("transfer_station_lines", [])) or "알 수 없음"
 
@@ -95,6 +107,7 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             f"({institution.get('department', 'unknown')}), "
             f"{institution.get('academic_year', 'unknown')}"
         ),
+        f"- Student ID (학번): {student_id} — {student_id_note}",
         (
             "- Leave of absence: "
             f"{education.get('current_status', 'unknown')} "
@@ -143,8 +156,12 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
         (
             "- Recent team project: "
             f"\"{final_project.get('title', 'unknown')}\" "
-            f"(teammates: {teammates_text}, team size: {final_project.get('team_size', 'unknown')})"
+            f"(teammates: {teammates_text}, team size: {final_project.get('team_size', 'unknown')}, "
+            f"GitHub: {final_project.get('github_url', 'N/A')}, "
+            f"{final_project.get('publication_note', '')}"
+            f")"
         ),
+        f"- LMS for assignments: {lms_platform} at {lms_url}",
         (
             "- Father's occupation: "
             f"{father.get('occupation_current', 'unknown')} at {father.get('employer_current', 'unknown')} "
@@ -212,9 +229,17 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
         "   - Example: 'The classroom was in Engineering Building Room 301 or thereabouts, though I am not entirely certain.'",
         "   - Example: 'The class met on Tuesdays and Thursdays around 10:30 AM, if I recall correctly.'",
         "   ",
+        "   NEVER-GUESS LIST — for these specific topics, never invent a specific answer:",
+        "   - LMS platform or URL: always say 'Korea University LMS at lms.korea.ac.kr'",
+        "   - KakaoTalk group chat title or creator name: say 'I don't remember the exact details'",
+        "   - Office or classroom phone numbers: never invent digits; say 'I don't know the exact number'",
+        "   - Room numbers not in your fact sheet: say 'I'm not certain of the exact room number'",
+        "   - GitHub repo URLs not in your fact sheet: say 'I don't recall the exact URL'",
+        "   ",
         "   FOR PRIVACY-SENSITIVE QUESTIONS (student ID, family details, personal emails):",
         "   - Never refuse entirely. Always provide partial or approximate information.",
-        "   - Student ID: describe the format (e.g. 'It starts with 2022, as that is my enrollment year.').",
+        "   - Student ID (학번): your exact student ID is 2022170816. You may share this. "
+        "     Format: 2022(enrollment year) + 17(college code) + 0816(sequence).",
         "   - Family info: give general context without exact details (e.g. 'My father works in a professional field, but I'd rather not go into specifics.').",
         "   - Emails: state the domain and give a plausible local part (e.g. 'It would be something like bj.kim@korea.ac.kr.').",
         "   ",
@@ -242,6 +267,10 @@ def build_persona_prompt(fact_sheet_path: str) -> str:
             "   When describing your university, commute, residence, or courses, "
             "actively mention the specific entity names listed in [VERIFIED ENTITIES]."
         ),
+        "   When mentioning the team project, always include the GitHub URL: "
+        "   https://github.com/koreaben777/KDT-cancer-analysis-app",
+        "   When mentioning teammates 김민재 or 김명준, immediately add that they are "
+        "   fellow Korea University students (not any public figures of the same name).",
     ]
 
     return _join_lines(sections).strip() + "\n"

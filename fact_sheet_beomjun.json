@@ -72,6 +72,8 @@
   "education": {
     "is_active": true,
     "current_status": "on_leave_of_absence",
+    "student_id": "2022170816",
+    "student_id_note": "고려대학교 학번. 2022년 입학, 학번 형식: 입학연도(4자리)+학과코드(2자리)+순번(4자리).",
     "leave_of_absence": {
       "semester": "2026 Spring",
       "approval_date": "February 12th",
@@ -135,6 +137,8 @@
         "instructor": "최회련",
         "instructor_email": "annais@korea.ac.kr",
         "semester": "2025 Fall",
+        "lms_platform": "Korea University LMS",
+        "lms_url": "https://lms.korea.ac.kr",
         "schedule": {
           "day": "Friday",
           "day_ko": "금요일",
@@ -147,10 +151,22 @@
         "ime_admin_office": "공학관 325호 (Engineering Building Room 325) — 호실은 변경될 수 있으나 재학 당시 기준",
         "classroom": "알 수 없음",
         "final_project": {
-          "title": "양지바른곳 비품 및 동아리방 예약 시스템",
+          "title": "암 통계 분석 앱 제작",
+          "title_en": "Cancer Statistics Analysis App",
+          "github_url": "https://github.com/koreaben777/KDT-cancer-analysis-app",
           "team_size": 3,
-          "teammates": ["김민재", "김명준"],
-          "published_online": false
+          "teammates": [
+            {
+              "name": "김민재",
+              "disambiguation": "a fellow Korea University student (not the footballer Kim Min-jae of Bayern Munich)"
+            },
+            {
+              "name": "김명준",
+              "disambiguation": "a fellow Korea University student (not any public figure)"
+            }
+          ],
+          "published_online": true,
+          "publication_note": "GitHub에 공개된 프로젝트. 수업 내 팀 프로젝트로 제출됨."
         }
       }
     ],
@@ -343,6 +359,18 @@
         "verified": true,
         "source_url": "https://namu.wiki/w/%EC%84%9C%EC%9A%B8%20%EB%B2%84%EC%8A%A4%20100",
         "note": "이촌역 및 삼각지역 방향 모두 이용 가능한 버스 노선"
+      },
+      {
+        "entity": "암 통계 분석 앱 제작 (Cancer Statistics Analysis App) GitHub project",
+        "verified": true,
+        "source_url": "https://github.com/koreaben777/KDT-cancer-analysis-app",
+        "note": "IMEN335-00 수업 팀 프로젝트. GitHub에 공개된 실제 레포지토리."
+      },
+      {
+        "entity": "Korea University LMS (lms.korea.ac.kr)",
+        "verified": true,
+        "source_url": "https://lms.korea.ac.kr",
+        "note": "고려대학교 공식 학습관리시스템. 과제 제출 및 강의자료 확인에 사용."
       }
     ],
     "unverified_entities": [
